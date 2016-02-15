@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="us.eiyou.express.MainActivity">
+
+    <ImageView
+        android:id="@+id/iv_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/main" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="快递单号："
+        android:textSize="23sp"
+        app:layout_marginLeftPercent="4%"
+        app:layout_marginTopPercent="9%" />
+
+    <EditText
+        android:id="@+id/et_express_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        app:layout_marginLeftPercent="34%"
+        app:layout_marginTopPercent="8%"
+        app:layout_widthPercent="60%" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="地点："
+        android:textSize="23sp"
+        app:layout_marginLeftPercent="8%"
+        app:layout_marginTopPercent="19%" />
+    <Button
+        android:id="@+id/b_loc_set"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_marginLeftPercent="34%"
+        app:layout_marginTopPercent="19%"
+        app:layout_widthPercent="9%"
+        app:layout_heightPercent="6%"
+        android:background="@drawable/set"/>
+
+    <Spinner
+        android:id="@+id/s_loc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_marginLeftPercent="44%"
+        app:layout_marginTopPercent="20.2%"
+        app:layout_widthPercent="50%" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="快递公司\n名字："
+        android:textSize="23sp"
+        app:layout_marginLeftPercent="4%"
+        app:layout_marginTopPercent="29%" />
+
+    <Button
+        android:id="@+id/b_express_name_set"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_marginLeftPercent="34%"
+        app:layout_marginTopPercent="30%"
+        app:layout_widthPercent="9%"
+        app:layout_heightPercent="6%"
+        android:background="@drawable/set"/>
+
+    <Spinner
+        android:id="@+id/s_express_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_marginLeftPercent="44%"
+        app:layout_marginTopPercent="31%"
+        app:layout_widthPercent="50%" />
+
+    <Button
+        android:id="@+id/b_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="获取\n确认码："
+        android:background="@drawable/button_background"
+        android:textSize="23sp"
+        app:layout_marginLeftPercent="4%"
+        app:layout_marginTopPercent="46%" />
+
+    <TextView
+        android:id="@+id/tv_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="←"
+        android:textColor="#000000"
+        android:textSize="55sp"
+        app:layout_marginLeftPercent="48%"
+        app:layout_marginTopPercent="45%" />
+
+    <EditText
+        android:id="@+id/et_phone"
+        android:inputType="phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_marginLeftPercent="12%"
+        app:layout_marginTopPercent="58%"
+        android:gravity="center"
+        app:layout_widthPercent="77%"
+        android:hint="收件人手机号"/>
+
+    <Button
+        android:id="@+id/b_send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="发送"
+        android:textSize="34sp"
+        android:background="@drawable/button_background"
+        app:layout_marginLeftPercent="40%"
+        app:layout_marginTopPercent="70%" />
+    <TextView
+        android:id="@+id/tv_context"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#002fff"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:text=" "
+        app:layout_marginTopPercent="80%"/>
+
+    <Button
+        android:id="@+id/b_query"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="查询发送"
+        app:layout_marginLeftPercent="3%"
+        app:layout_marginTopPercent="91%"
+        android:textSize="20sp"
+        android:background="@drawable/button_background"/>
+
+</com.zhy.android.percent.support.PercentRelativeLayout>
