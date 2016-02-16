@@ -32,6 +32,7 @@ public class ExpressInfoActivity extends AppCompatActivity {
         tableLayout.setStretchAllColumns(true);
         BmobQuery<Express_info> bmobQuery = new BmobQuery<>();
         bmobQuery.addWhereEqualTo("user", bmobUser.getUsername());
+        bmobQuery.order("-createdAt");
         bmobQuery.findObjects(getApplicationContext(), new FindListener<Express_info>() {
             @Override
             public void onSuccess(List<Express_info> list) {
