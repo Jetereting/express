@@ -56,6 +56,18 @@
         app:layout_heightPercent="7%"
         app:layout_marginLeftPercent="29%"
         app:layout_marginTopPercent="56.2%"/>
+    <Button
+        android:id="@+id/b_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="已有帐号？|马上登录"
+        android:textColor="#3787f1"
+        android:background="@null"
+        android:gravity="center"
+        android:textSize="17sp"
+        app:layout_marginLeftPercent="30%"
+        app:layout_marginTopPercent="64%"/>
+
 
 
 

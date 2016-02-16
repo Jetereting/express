@@ -11,6 +11,11 @@
     <uses-permission android:name="android.permission.READ_LOGS" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.SEND_SMS" />
+    <!-- 更新-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <meta-data android:value="Channel ID" android:name="BMOB_CHANNEL"/>
 
     <application
         android:allowBackup="true"
@@ -29,6 +34,11 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".ExpressInfoActivity"
             android:screenOrientation="landscape"/>
+        <!-- 更新-->
+        <activity
+            android:name="cn.bmob.v3.update.UpdateDialogActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
     </application>
 
 </manifest>

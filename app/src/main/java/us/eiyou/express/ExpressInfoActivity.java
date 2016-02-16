@@ -41,7 +41,7 @@ public class ExpressInfoActivity extends AppCompatActivity {
 
                     Express_info express_info= list.get(row);
                     TextView textView = new TextView(getApplicationContext());
-                    textView.setText(express_info.getCreatedAt());
+                    textView.setText(express_info.getCreatedAt().substring(2,10));
                     tableRow.addView(textView);
                     TextView textView1 = new TextView(getApplicationContext());
                     textView1.setText(express_info.getPhone());

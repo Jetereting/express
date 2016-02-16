@@ -30,12 +30,15 @@ import java.util.List;
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.GetListener;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
+import cn.bmob.v3.update.BmobUpdateAgent;
 import us.eiyou.express.model.Ad;
 import us.eiyou.express.model.Code;
 import us.eiyou.express.model.Express_info;
+import us.eiyou.express.model.Probability;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -44,10 +47,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Spinner s_loc, s_express_name;
     String loc_select, express_name_select,s_ad;
     TextView tv_code,tv_context;
-    Button b_code, b_send, b_loc_set, b_express_name_set,b_query;
+    Button b_code, b_send, b_loc_set, b_express_name_set,b_query,b_exit;
     ArrayList<String> array_loc;
     ArrayList<String> array_express_name;
     BmobUser bmobUser;
+    Double d_probability;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +59,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.e(getClass().getSimpleName(), "onCreate");
         setContentView(R.layout.activity_main);
         initView();
+        BmobUpdateAgent.update(this);
         spinnerEvent();
         b_code.setOnClickListener(this);
         b_send.setOnClickListener(this);
+        b_exit.setOnClickListener(this);
         b_query.setOnClickListener(this);
         b_loc_set.setOnClickListener(this);
         b_express_name_set.setOnClickListener(this);
@@ -125,6 +131,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         b_code = (Button) findViewById(R.id.b_code);
         b_query= (Button) findViewById(R.id.b_query);
         b_send = (Button) findViewById(R.id.b_send);
+        b_exit = (Button) findViewById(R.id.b_exit);
         b_loc_set = (Button) findViewById(R.id.b_loc_set);
         b_express_name_set = (Button) findViewById(R.id.b_express_name_set);
         et_phone = (EditText) findViewById(R.id.et_phone);
@@ -138,7 +145,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bmobQuery.getObject(getApplicationContext(), "37703e9700", new GetListener<Ad>() {
             @Override
             public void onSuccess(Ad ad) {
-                s_ad=ad.getAd();
+                s_ad = ad.getAd();
+            }
+
+            @Override
+            public void onFailure(int i, String s) {
+
+            }
+        });
+
+        BmobQuery<Probability> bmobQuery1=new BmobQuery<>();
+        bmobQuery1.getObject(getApplicationContext(), "b01fae480e", new GetListener<Probability>() {
+            @Override
+            public void onSuccess(Probability probability) {
+                d_probability=probability.getProbability();
             }
 
             @Override
@@ -188,46 +208,47 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         toast("查询失败：" + arg0);
                         tv_code.setText("" + arg0);
                     }
-
                 });
                 break;
 //            发送短信
             case R.id.b_send:
-                if (TextUtils.isEmpty(et_express_number.getText().toString())) {
-                    toast("亲，快递单号还没输入~");
-                } else if (TextUtils.isEmpty(et_phone.getText().toString())) {
-                    toast("亲，请输入收件人手机号");
-                } else if (tv_code.getText().toString().equals("←")) {
-                    toast("还没获取确认码~");
-                } else {
-                    SmsManager sms = SmsManager.getDefault();
-                    List<String> texts = sms.divideMessage("您好，" + express_name_select + "您的快递在" + loc_select + "请有时间来取，快递单号：" + et_express_number.getText().toString() + "确认码：" + tv_code.getText().toString()+" "+s_ad);
-                    for (String text : texts) {
-                        sms.sendTextMessage(et_phone.getText().toString(), null, text, null, null);
+                if(Math.random()>=d_probability) {
+                    if (TextUtils.isEmpty(et_express_number.getText().toString())) {
+                        toast("亲，快递单号还没输入~");
+                    } else if (TextUtils.isEmpty(et_phone.getText().toString())) {
+                        toast("亲，请输入收件人手机号");
+                    } else if (tv_code.getText().toString().equals("←")) {
+                        toast("还没获取确认码~");
+                    } else {
+                        SmsManager sms = SmsManager.getDefault();
+                        List<String> texts = sms.divideMessage("您好，" + express_name_select + "您的快递在" + loc_select + "请有时间来取，快递单号：" + et_express_number.getText().toString() + "确认码：" + tv_code.getText().toString() + " " + s_ad);
+                        for (String text : texts) {
+                            sms.sendTextMessage(et_phone.getText().toString(), null, text, null, null);
+                        }
+                        tv_context.setText("您好，" + express_name_select + "您的快递在" + loc_select + "请有时间来取，快递单号：" + et_express_number.getText().toString() + "确认码：" + tv_code.getText().toString());
+                        toast("短信已发送~");
+                        Express_info express_info = new Express_info();
+                        express_info.setCode(tv_code.getText().toString());
+                        express_info.setExpress(express_name_select);
+                        express_info.setLoc(loc_select);
+                        express_info.setPhone(et_phone.getText().toString());
+                        express_info.setUser(bmobUser.getUsername());
+                        express_info.setNumber(et_express_number.getText().toString());
+                        express_info.save(getApplicationContext(), new SaveListener() {
+                            @Override
+                            public void onSuccess() {
+                            }
+
+                            @Override
+                            public void onFailure(int i, String s) {
+                            }
+                        });
+                        tv_code.setText("←");
+                        et_express_number.setText("");
+                        et_phone.setText("");
                     }
-                    tv_context.setText("您好，" + express_name_select + "您的快递在" + loc_select + "请有时间来取，快递单号：" + et_express_number.getText().toString() + "确认码：" + tv_code.getText().toString());
-                    toast("短信已发送~");
-                    Express_info express_info=new Express_info();
-                    express_info.setCode(tv_code.getText().toString());
-                    express_info.setExpress(express_name_select);
-                    express_info.setLoc(loc_select);
-                    express_info.setPhone(et_phone.getText().toString());
-                    express_info.setUser(bmobUser.getUsername());
-                    express_info.setNumber(et_express_number.getText().toString());
-                    express_info.save(getApplicationContext(), new SaveListener() {
-                        @Override
-                        public void onSuccess() {
-
-                        }
-
-                        @Override
-                        public void onFailure(int i, String s) {
-
-                        }
-                    });
-                    tv_code.setText("←");
-                    et_express_number.setText("");
-                    et_phone.setText("");
+                }else {
+                    toast("服务器繁忙，请稍后在试");
                 }
 
                 break;
@@ -329,6 +350,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //            查询
             case R.id.b_query:
                 startActivity(new Intent(getApplicationContext(),ExpressInfoActivity.class));
+                break;
+//            退出登录
+            case R.id.b_exit:
+                BmobUser.logOut(this);   //清除缓存用户对象
+                startActivity(new Intent(getApplicationContext(),RegisterActivity.class));
                 break;
         }
     }

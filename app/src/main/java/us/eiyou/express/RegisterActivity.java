@@ -1,5 +1,6 @@
 package us.eiyou.express;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -27,20 +28,20 @@ public class RegisterActivity extends AppCompatActivity {
         findViewById(R.id.b_register).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                s_et_name=et_name.getText().toString();
-                s_et_password=et_password.getText().toString();
-                s_et_password_re=et_password_re.getText().toString();
+                s_et_name = et_name.getText().toString();
+                s_et_password = et_password.getText().toString();
+                s_et_password_re = et_password_re.getText().toString();
 
-                if(!NetUtils.isNetWorked(getApplicationContext())){
+                if (!NetUtils.isNetWorked(getApplicationContext())) {
                     toast("亲, 木有网络 ( ⊙ o ⊙ ) ");
-                }else if(TextUtils.isEmpty(s_et_name)||TextUtils.isEmpty(s_et_password)||TextUtils.isEmpty(s_et_password_re)){
+                } else if (TextUtils.isEmpty(s_et_name) || TextUtils.isEmpty(s_et_password) || TextUtils.isEmpty(s_et_password_re)) {
                     toast("亲, 不填信息完整, 不能完成注册, ~~~~(>_<)~~~~ ");
-                }else if(!s_et_password.equals(s_et_password_re)){
+                } else if (!s_et_password.equals(s_et_password_re)) {
                     toast("亲, 刚才你手抖了下, 两次密码输入不一致");
-                }else if(isPhoneNumberValid(s_et_name)){
+                } else if (isPhoneNumberValid(s_et_name)) {
                     toast("亲, 请输入正确的手机号码");
-                }else {
-                    User bmobUser=new User();
+                } else {
+                    User bmobUser = new User();
                     bmobUser.setUsername(s_et_name);
                     bmobUser.setPassword(s_et_password);
                     bmobUser.setMobilePhoneNumber(s_et_name);
@@ -53,17 +54,23 @@ public class RegisterActivity extends AppCompatActivity {
 
                         @Override
                         public void onFailure(int i, String s) {
-                            Log.e("onFailure",s);
-                            if(s.contains("username")) {
+                            Log.e("onFailure", s);
+                            if (s.contains("username")) {
                                 toast("您的手机号已经注册过一个账户了");
-                            }else if(s.contains("mobilePhoneNumber")){
+                            } else if (s.contains("mobilePhoneNumber")) {
                                 toast("您的手机号已经注册过一个账户了");
-                            }else if(s.contains("Must be valid mobile number")){
+                            } else if (s.contains("Must be valid mobile number")) {
                                 toast("亲, 请输入正确的手机号码");
                             }
                         }
                     });
                 }
+            }
+        });
+        findViewById(R.id.b_login).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),LoginActivity.class));
             }
         });
     }

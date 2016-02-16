@@ -6,48 +6,60 @@
     android:orientation="vertical"
     tools:context="us.eiyou.express.ExpressInfoActivity">
 
-    <TableLayout
-        android:id="@+id/tl"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TableRow>
-            <TextView
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="时间"
-                android:layout_margin="2sp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="收件人"
-                android:layout_margin="2sp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="运单号"
-                android:layout_margin="2sp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="确认码"
-                android:layout_margin="2sp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="快递公司"
-                android:layout_margin="2sp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="地址"
-                android:layout_margin="2sp"/>
-        </TableRow>
-    </TableLayout>
+        android:layout_height="match_parent">
+
+        <TableLayout
+            android:id="@+id/tl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2sp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="时间" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2sp"
+                    android:layout_weight="1"
+                    android:text="收件人" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2sp"
+                    android:layout_weight="1"
+                    android:text="运单号" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2sp"
+                    android:layout_weight="1"
+                    android:text="确认码" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2sp"
+                    android:layout_weight="1"
+                    android:text="快递公司" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2sp"
+                    android:layout_weight="1"
+                    android:text="地址" />
+            </TableRow>
+        </TableLayout>
+    </ScrollView>
 </LinearLayout>
